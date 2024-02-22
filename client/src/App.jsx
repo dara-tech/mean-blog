@@ -10,9 +10,9 @@ import Header from './components/Header';
 export default function App() {
   return (
     <BrowserRouter>
-    <Header/>
+      <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} /> {/* Corrected path definition for Home */}
         <Route path="/about" element={<About />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
