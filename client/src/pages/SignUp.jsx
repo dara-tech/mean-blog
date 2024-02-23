@@ -64,7 +64,7 @@ export default function SignUp() {
                         <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to bg-pink-500 rounded-b-lg text-white">Sovandara</span> Blog
                     </Link>
                     <p className="text-sm mt-5">
-                        Sovannara's blog is a treasure trove of new discoveries and insights, offering a captivating journey through his latest research findings. From the homepage's featured articles to the dedicated sections on various topics, visitors are invited to explore a world of knowledge at their fingertips.
+                        This blog is a treasure trove of new discoveries and insights, offering a captivating journey through his latest research findings. From the Homepage featured articles to the dedicated sections on various topics, visitors are invited to explore a world of knowledge at their fingertips.
                     </p>
                 </div>
                 {/* Right Section */}
