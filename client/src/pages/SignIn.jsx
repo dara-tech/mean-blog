@@ -1,59 +1,48 @@
-import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
-import { Link, useNavigate} from "react-router-dom";
-import { useState } from "react";
+import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from '../redux/user/userSlice';
+
 
 export default function SignIn() {
+  const [formData, setFormData] = useState({});
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.email || !formData.password) {
+      return dispatch(signInFailure('Please fill all the fields'));
+    }
+    try {
+      dispatch(signInStart());
+      const res = await fetch('/api/auth/signin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signInFailure(data.message));
+      }
 
-    const [formData, setFormData]= useState({});
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const navigate =useNavigate();
+      if (res.ok) {
+        dispatch(signInSuccess(data));
+        navigate('/');
+      }
+    } catch (error) {
+      dispatch(signInFailure(error.message));
+    }
+  };
 
-    const handleChange = (e) => {
-        setFormData ({...formData, [e.target.id]: e.target.value.trim() });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!formData.email || !formData.password) {
-            return setErrorMessage('Please fill out all fields!');
-        }
-        try {
-            setLoading(true);
-            setErrorMessage(null);
-            const res = await fetch('/api/auth/signin', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
-            const data = await res.json(); // Parse the JSON response once
-            setLoading(false); // Set loading state after parsing JSON
-            
-            if (res.ok) {
-                console.log('Sign up successful!', data);
-                // Do something with the successful response data
-                // For example, you can redirect the user to another page
-                // window.location.href = '/success-page';
-            } else {
-                console.error('Sign up failed:', res.statusText);
-                // Handle failed response
-                setErrorMessage(data.message); // Set error message from response data
-            }
-            setLoading(false);
-            if(res.ok){
-                navigate('/')
-            }
-            
-        } catch (error) {
-            console.error('An error occurred:', error.message);
-            setErrorMessage('An error occurred. Please try again.'); // Set generic error message
-            setLoading(false);
-        }
-    };
-    
-    
-    
-    
 
     return (
         <div className="min-h-screen mt-20">
