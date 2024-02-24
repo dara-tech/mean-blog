@@ -1,12 +1,16 @@
 import { Avatar, Button, Dropdown, DropdownDivider, DropdownHeader, Navbar, NavbarToggle, TextInput } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
-import { AiOutlineSearch } from 'react-icons/ai'
-import { FaMoon } from 'react-icons/fa' // Corrected typo here
-import { useSelector } from 'react-redux' // Corrected typo here
+import { AiOutlineSearch } from 'react-icons/ai';
+import { FaMoon, FaSun } from 'react-icons/fa'; // Corrected typo here
+import { useSelector , useDispatch} from 'react-redux'; // Corrected typo here
+import { toggleTheme } from "../redux/theme/themeSilice";
 
 export default function Header() {
     const path = useLocation().pathname;
+    const dispatch = useDispatch();
+   
     const { currentUser } = useSelector(state => state.user); // Corrected typo here
+    const {theme} = useSelector (state => state.theme);
     return (
         <Navbar className="border-b-2">
             <Link to='/' className="self-center whitespace-nowrap text-sm:text-xl font-semibold dark:text-white">
@@ -24,8 +28,9 @@ export default function Header() {
                 <AiOutlineSearch />
             </Button>
             <div className="flex gap-2 md:order-2">
-                <Button className="w-12 h-10 hidden sm:inline" color='gray' pill>
-                    <FaMoon />
+                <Button className="w-12 h-10 hidden sm:inline" color='gray' pill 
+                onClick={()=>dispatch(toggleTheme())}>
+                   {theme === 'light'? <FaSun/> : <FaMoon/>}
                 </Button>
                 {currentUser ? (
                     <Dropdown
@@ -47,14 +52,11 @@ export default function Header() {
                                 {currentUser.email}
                             </span>
                         </DropdownHeader>
-                        <Link to={'/dashboard? tab = profile'}>
+                        <Link to='/dashboard?tab=profile'> {/* Corrected spacing in query parameter */}
                             <Dropdown.Item>Profiles</Dropdown.Item>
                         </Link>
                         <DropdownDivider/>
-                            <Dropdown.Item>Sign Out</Dropdown.Item>
-                        
-
-
+                        <Dropdown.Item>Sign Out</Dropdown.Item>
                     </Dropdown>
                 ) :
                     <Link to='/sign-in'>
