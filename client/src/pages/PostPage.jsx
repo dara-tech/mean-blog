@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import CallToAction from '../components/CallToAction';
 import CommentSection from '../components/CommentSection';
-// import PostCard from '../components/PostCard';
+import PostCard from '../components/PostCard';
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -75,7 +75,7 @@ export default function PostPage() {
         alt={post && post.title}
         className='mt-10 p-3 max-h-[600px] w-full object-cover'
       />
-      <div className='flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs'>
+      <div className='flex justify-between p-4 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs'>
         <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
         <span className='italic'>
           {post && (post.content.length / 1000).toFixed(0)} mins read
@@ -93,10 +93,12 @@ export default function PostPage() {
 
       <div className='flex flex-col justify-center items-center mb-5'>
         <h1 className='text-xl mt-5'>Recent articles</h1>
-        {/* <div className='flex flex-wrap gap-5 mt-5 justify-center'>
+        <div className='flex flex-wrap gap-3 mt-5 justify-center'>
+
+
           {recentPosts &&
             recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
-        </div> */}
+        </div>
       </div>
     </main>
   );
