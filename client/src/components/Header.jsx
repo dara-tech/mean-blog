@@ -59,7 +59,7 @@ export default function Header() {
             <TextInput
   type='text'
   placeholder='Search...'
-//   rightIcon={AiOutlineSearch}
+  rightIcon={AiOutlineSearch}
   className='lg:inline-block lg:w-auto ml-auto mr-2 border-lg'
   value={searchTerm}
   onChange={(e) => setSearchTerm(e.target.value)}
@@ -67,9 +67,7 @@ export default function Header() {
 
 
       </form>
-                <Button className="w-10 h-10" color="gray" pill>
-                <AiOutlineSearch />
-            </Button>
+                
                 <Button className="w-12 h-10  sm:inline" color='gray' pill 
                 onClick={()=>dispatch(toggleTheme())}>
                    {theme === 'light'? <FaSun/> : <FaMoon/>}
