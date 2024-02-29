@@ -39,3 +39,14 @@ body {
 .dark .post-content a {
   color: red;
 }
+.search-input {
+  width: 100%; /* Set default width to 100% */
+  max-width: 300px; /* Set maximum width */
+  margin: 0 auto; /* Center the search bar */
+}
+
+@media only screen and (min-width: 768px) {
+  .search-input {
+      max-width: 500px; /* Adjust maximum width for larger screens */
+  }
+}
