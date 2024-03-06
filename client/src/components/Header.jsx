@@ -70,7 +70,7 @@ export default function Header() {
 
              </form>
                 
-                <Button className="w-10 h-10  sm:inline " color='gray' pill 
+                <Button className="w-12 h-10 sm:inline " color='gray' pill 
                 onClick={()=>dispatch(toggleTheme())}>
                    {theme === 'light'? <FaSun/> : <FaMoon/>}
                 </Button>
